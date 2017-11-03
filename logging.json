@@ -1,0 +1,57 @@
+{
+  "version": 1,
+  "disable_existing_loggers": false,
+  "formatters": {
+    "simple": {
+      "class": "logging.Formatter",
+      "style": "{",
+      "datefmt": "%Y-%m-%d %H:%M:%S",
+      "format": "%(asctime)s - %(name)-15s - %(levelname)-8s:%(lineno)4d - %(message)s"
+    },
+    "multi-process": {
+      "class": "logging.Formatter",
+      "style": "{",
+      "datefmt": "%Y-%m-%d %H:%M:%S",
+      "format": "%(asctime)s {levelname:8s}; {process:5d}; {name:<15s} {lineno:4d}; {message:s}"
+    },
+    "multi-thread": {
+      "class": "logging.Formatter",
+      "style": "{",
+      "datefmt": "%Y-%m-%d %H:%M:%S",
+      "format": "%(asctime)s %(levelname)8s %(threadName)8s %(name)-15s %(lineno)4d %(message)s"
+    },
+    "verbose": {
+      "class": "logging.Formatter",
+      "style": "{",
+      "datefmt": "%Y-%m-%d %H:%M:%S",
+      "format": "%(levelname)8s %(process)5d %(threadName)8s %(asctime)s %(name)-15s %(lineno)4d %(message)s"
+    },
+    "multiline": {
+      "class": "logging.Formatter",
+      "style": "{",
+      "datefmt": "%Y-%m-%d %H:%M:%S",
+      "format": "{levelname:8s}\n{process:5d}\n{threadName:8s}\n{asctime:s}\n{name:<15s}{lineno:4d}\n{message:s}\n"
+    }
+  },
+  "handlers": {
+    "file": {
+      "level": "DEBUG",
+      "class": "logging.FileHandler",
+      "filename": "logging/home_thermostat.log",
+      "formatter": "simple"
+    },
+    "console": {
+      "level": "DEBUG",
+      "class": "logging.StreamHandler",
+      "formatter": "simple",
+      "stream": "ext://sys.stdout"
+    }
+  },
+  "loggers": {},
+  "root": {
+    "handlers": [
+      "file"
+    ],
+    "level": "INFO"
+  }
+}

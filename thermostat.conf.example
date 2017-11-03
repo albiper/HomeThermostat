@@ -1,0 +1,7 @@
+[Pin]
+# Pin numbering mode - BCM or GPIO
+Mode=GPIO
+Relay=12
+
+[Database]
+Filename=thermostat.sqlite
