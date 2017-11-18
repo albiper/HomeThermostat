@@ -5,3 +5,6 @@ Relay=12
 
 [Database]
 Filename=thermostat.sqlite
+
+[Sensors]
+TemperatureSensor=28-0415a16f05ff

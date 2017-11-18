@@ -22,3 +22,6 @@ class RelayControl:
 
     def set_status_low(self):
         set_gpio_pin_status(self.out_pin, 0)
+
+    def set_status(self, desired_value):
+        set_gpio_pin_status(self.out_pin, int(desired_value))

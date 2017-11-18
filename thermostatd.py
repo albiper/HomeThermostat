@@ -23,6 +23,8 @@ from Utilities import set_gpio_pin_mode
 from Utilities import file_exists
 from Utilities import set_gpio_pin_status
 from DatabaseInteraction import DatabaseInteraction
+from ActivationManagement import ActivationManagement
+from RelayControl import RelayControl
 
 __author__ = "Alberto Perona aka albirex"
 
@@ -50,7 +52,9 @@ def main():
     pin_mode = config.get('Pin', 'Mode')
     relay_pin = config.getint('Pin', 'Relay')
     database_name = config.get('Database', 'Filename')
+    sensor_id = config.get('Sensors', 'TemperatureSensor')
     db = DatabaseInteraction(database_name)
+    relay = RelayControl(relay_pin)
 
     try:
         # initialize GPIO
@@ -60,12 +64,18 @@ def main():
         set_gpio_pin_mode(logger, relay_pin, False)
         set_gpio_pin_status(relay_pin, 0)
 
+        current_status = False
+
         while not exit_loop:
 
             logging.info("Checking schedules")
 
-            schedules = db.get_schedules()
-            print(schedules)
+            activation = ActivationManagement.Check(db, sensor_id)
+
+            if activation != current_status:
+                print("Change status")
+                relay.set_status(activation)
+                current_status = activation
 
             time.sleep(60)
 
