@@ -36,9 +36,11 @@ class DatabaseInteraction:
             self.initialize()
 
         now = datetime.datetime.now()
-        query = "SELECT temperatures_levels.temperature FROM schedules inner join temperatures_levels " \
-                "on schedules.temperature_level_id = temperatures_levels.id where start <= time('%s') " \
-                "and day_of_week = %d ORDER BY start DESC LIMIT 1" % \
+        query = "SELECT temperatures_levels.temperature, " \
+                "(SELECT s.start FROM schedules s WHERE s.start > schedules.start ORDER BY start limit 1) " \
+                "FROM schedules INNER JOIN temperatures_levels " \
+                "ON schedules.temperature_level_id = temperatures_levels.id WHERE start <= TIME('%s') " \
+                "AND day_of_week = %d ORDER BY start DESC LIMIT 1" % \
                 (now.strftime('%H:%M:%S'), now.weekday())
 
         result = self.db_integration.execute_select_query(query)

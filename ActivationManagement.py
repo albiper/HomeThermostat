@@ -16,7 +16,7 @@ class ActivationManagement:
 
         current_temperature = TemperatureCapture.get_value(sensor_id)
         logger.info("Current temperature %s" % current_temperature)
-        logger.info("Schedule temperature %s" % schedule[0])
+        logger.info("Schedule temperature %s until %s" % (schedule[0], schedule[1]))
 
         if current_temperature < schedule[0]:
             return True
