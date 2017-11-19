@@ -72,6 +72,11 @@ def main():
 
             activation = ActivationManagement.Check(db, sensor_id)
 
+            if activation:
+                logger.info("Status must be ON")
+            else:
+                logger.info("Status must be OFF")
+
             if activation != current_status:
                 print("Change status")
                 relay.set_status(activation)
