@@ -18,7 +18,9 @@ class ActivationManagement:
         logger.info("Current temperature %s" % current_temperature)
         logger.info("Schedule temperature %s until %s" % (schedule[0], schedule[1]))
 
-        if current_temperature < schedule[0]:
+        if current_temperature < schedule[0] - float(0.5):
             return True
-        else:
+        elseif current_temperature < schedule[0] + float(0.5):
             return False
+        else:
+            retun None
