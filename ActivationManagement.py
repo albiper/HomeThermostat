@@ -3,6 +3,7 @@ import logging
 
 from TemperatureCapture import TemperatureCapture
 
+
 class ActivationManagement:
     """Class to check when activate relay"""
 
@@ -12,7 +13,8 @@ class ActivationManagement:
         schedule = db.get_current_schedule()
 
         if schedule is None:
-            return False
+            logger.error('No schedule found')
+            return None
 
         current_temperature = TemperatureCapture.get_value(sensor_id)
         logger.info("Current temperature %s" % current_temperature)
@@ -20,7 +22,7 @@ class ActivationManagement:
 
         if current_temperature < schedule[0] - float(0.5):
             return True
-        elseif current_temperature < schedule[0] + float(0.5):
+        elif current_temperature > schedule[0] + float(0.5):
             return False
         else:
-            retun None
+            return None
